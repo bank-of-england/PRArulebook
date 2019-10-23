@@ -1,8 +1,8 @@
 #' Scrape rule ID
 #'
-#' @param rule_urls Data frame with rule url. Output of \code{"scrape_rule_structure"}.
 #' @param selector_rule_no Rule number CSS selector
 #' @param selector_rule_text Rule text CSS selector
+#' @param url String. URL to scrape. Output from \code{"scrape_rule_structure"}.
 #'
 #' @return Data frame with rule text and links.
 #' @export
@@ -14,6 +14,10 @@
 #' scrape_rule_id(rules12$rule_url[1], rules12$rule_number_sel[1], rules12$rule_text_sel[1])
 #' }
 scrape_rule_id <- function(url, selector_rule_no, selector_rule_text) {
+
+  if (!startsWith(url, "http")) { # TODO or WWW / prarulebook.co.uk
+    stop("Provide a valid URL.")
+  }
 
   if (is.na(url)) {
     rules_content <-

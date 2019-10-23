@@ -23,5 +23,6 @@ Extract the full text or links from the PRA Rulebook given the URL.
 \dontrun{
 get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007")
 get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007", "links")
+get_content("http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145", "text", "yes")
 }
 }

@@ -1,6 +1,7 @@
 #' Scrape rule structure
 #'
 #' @param df Data frame with chapter URLs. Output of \code{"scrape_chapter_structure"}.
+#' @param rulebook_date String. Date to scrape.
 #'
 #' @return Data frame with scraped rule structure.
 #' @export

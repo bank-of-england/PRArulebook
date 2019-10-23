@@ -3,10 +3,15 @@
 
 <!-- badges: start -->
 
+[![Project Status: Active Ã¢â‚¬â€œ The project has reached a stable,
+usable state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/PRArulebook)](https://cran.r-project.org/package=PRArulebook)
+[![Codecov test
+coverage](https://codecov.io/gh/erzk/PRArulebook/branch/master/graph/badge.svg)](https://codecov.io/gh/erzk/PRArulebook?branch=master)
 <!-- badges: end -->
 
 `PRArulebook` is a package to scrape the PRA (Prudential Regulation
@@ -94,6 +99,14 @@ several layers and each of them can be passed to the `layer` argument of
 The output will be a data frame with information about the structure
 (i.e. URLs and names).
 
+Scraping individual rules is much slower so another function should be
+used
+
+``` r
+# extract all rules from the first three chapters
+rules <- scrape_rule_structure(chapters[1:3,], "18-06-2019")
+```
+
 ### Content
 
 Once the structure URLs are scraped, they can be used to extract
@@ -106,7 +119,9 @@ function with a URL of a given chapter.
 
 ``` r
 # scrape text from a single chapter
-chapter <- get_content(chapters$chapter_url[1])
+chapter_text <- get_content(chapters$chapter_url[1])
+# or single rule
+rule_text <- get_content(rules$rule_url[2], "text", "yes")
 ```
 
 This function can be applied on the entire rulebook in the following
@@ -120,6 +135,9 @@ chapters_text <-
                 get_content)
 # exception handling might be needed
 ```
+
+The output can be then joined to the information about the rulebook
+structure and aggregated at a higher level.
 
 #### Network
 

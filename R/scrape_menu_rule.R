@@ -2,6 +2,10 @@
 #'
 #' Helper function
 #'
+#' @param url String. URL to scrape.
+#' @param nodes_only XML nodes. Output of \code{"scrape_menu"}
+#' @param rulebook_date String. Date to scrape.
+#'
 #' @return Data frame
 #' @export
 #'
@@ -16,10 +20,10 @@
 #'   rvest::html_nodes("a")
 #' scrape_menu_rule()
 #' }
-scrape_menu_rule <- function(nodes_only, rulebook_date) {
+scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
   IDs <- nodes_only %>% rvest::html_attr("id") %>% na.omit()
 
-  # test if empty
+  # TODO test if empty
   # e.g. http://www.prarulebook.co.uk/rulebook/Content/Chapter/302933/16-11-2017
 
   if (length(IDs) > 0) {

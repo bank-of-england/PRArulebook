@@ -8,6 +8,8 @@ scrape_rule_structure(df, rulebook_date)
 }
 \arguments{
 \item{df}{Data frame with chapter URLs. Output of \code{"scrape_chapter_structure"}.}
+
+\item{rulebook_date}{String. Date to scrape.}
 }
 \value{
 Data frame with scraped rule structure.

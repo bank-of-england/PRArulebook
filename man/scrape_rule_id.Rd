@@ -7,11 +7,11 @@
 scrape_rule_id(url, selector_rule_no, selector_rule_text)
 }
 \arguments{
+\item{url}{String. URL to scrape. Output from \code{"scrape_rule_structure"}.}
+
 \item{selector_rule_no}{Rule number CSS selector}
 
 \item{selector_rule_text}{Rule text CSS selector}
-
-\item{rule_urls}{Data frame with rule url. Output of \code{"scrape_rule_structure"}.}
 }
 \value{
 Data frame with rule text and links.

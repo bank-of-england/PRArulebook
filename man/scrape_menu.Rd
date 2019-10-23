@@ -7,7 +7,7 @@
 scrape_menu(url, selector, rulebook_date)
 }
 \arguments{
-\item{url}{Full URL to scrape}
+\item{url}{String. URL to scrape.}
 
 \item{selector}{String. CSS selector to scrape. Use Chrome with SelectorGadget to find the relevant selector.}
 

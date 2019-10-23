@@ -13,12 +13,18 @@
 #' \dontrun{
 #' get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007")
 #' get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007", "links")
+#' get_content("http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145", "text", "yes")
 #' }
 get_content <- function(x, type = "text", single_rule_selector = NULL) {
 
-  if (!startsWith(x, "http")) { # or WWW / prarulebook.co.uk
+  if (!startsWith(x, "http")) { # TODO or WWW / prarulebook.co.uk
     stop("Provide a valid URL.")
   }
+
+  # # TODO fix the checks
+  # if (type %in% c("text", "links")) {
+  #   stop("Provide a valid type to scrape: 'text' or 'links'.")
+  # }
 
   # TODO check the URL type?
 
@@ -91,6 +97,7 @@ get_content <- function(x, type = "text", single_rule_selector = NULL) {
                      url = x,
                      stringsAsFactors = FALSE)
         # TODO clean rule_text_df
+        # TODO rename 'url' based on the input type: chapter/rule etc.
 
         # deleted rules
         # e.g. MAR 4.1.3 http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007#242057
