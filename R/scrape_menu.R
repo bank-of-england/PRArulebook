@@ -29,7 +29,7 @@ scrape_menu <- function(url, selector, rulebook_date) {
 
   # pull the html nodes
   # TODO add ua
-  nodes_only <- httr::GET(url) %>% extract_results()
+  nodes_only <- httr::GET(url) %>% PRArulebook:::extract_results()
 
   if (is.null(nodes_only)) {
     # e.g. this URL can be returned as empty because it is not active anymore

@@ -11,9 +11,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007")
-#' get_content("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007", "links")
-#' get_content("http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145", "text", "yes")
+#' get_content(
+#' "http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007")
+#' get_content(
+#' "http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007",
+#' "links")
+#' get_content(
+#' "http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145",
+#' "text",
+#' "yes")
 #' }
 get_content <- function(x, type = "text", single_rule_selector = NULL) {
 
@@ -153,34 +159,13 @@ get_content <- function(x, type = "text", single_rule_selector = NULL) {
                            to_text = nodes_links_text,
                            stringsAsFactors = FALSE)
 
-    ### assign link type - used in cleaning the links (network_cleaning.R)
-    assign_link_type <- function(x) {
-      ifelse(is.na(x), NA,
-             ifelse(grepl("Content/Part", x), "Part",
-                    ifelse(grepl("Content/Chapter", x), "Chapter",
-                           ifelse(grepl("Content/Rule", x), "Rule",
-                                  ifelse(grepl("Content/Sector", x), "Sector",
-                                         ifelse(grepl("LegalInstrument", x), "Legal",
-                                                ifelse(grepl("/Glossary", x), "Glossary",
-                                                       "Other")))))))
-    }
     # run the link type assignment
-    links_df$to_type <- assign_link_type(links_df$to)
-
-    # clean the links - append "http:" if it's a rulebook url
-    clean_to_link <- function(url_to_clean) {
-      cleaned_url <-
-        ifelse(startsWith(url_to_clean, "/rulebook/"),
-               paste0("http://www.prarulebook.co.uk", url_to_clean),
-               url_to_clean)
-      return(cleaned_url)
-    }
+    links_df$to_type <- PRArulebook:::assign_link_type(links_df$to)
 
     # apply the cleaning function only on non-NA url
     links_df$to <- ifelse(is.na(links_df$to),
                           links_df$to,
-                          clean_to_link(links_df$to))
-
+                          PRArulebook:::clean_to_link(links_df$to))
 
     # return data frame with links
     return(links_df)

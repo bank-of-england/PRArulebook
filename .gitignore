@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 inst/doc
+R/tmp.R
+R/SWP/

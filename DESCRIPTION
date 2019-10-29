@@ -23,5 +23,6 @@ Imports:
     future,
     furrr,
     textclean,
-    purrr
+    purrr,
+    xml2
 RoxygenNote: 6.1.1

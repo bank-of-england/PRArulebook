@@ -18,7 +18,9 @@
 #' }
 get_structure <- function(rulebook_date, layer = "chapter") {
   # assign the error message
-  date_error_message <- "Provide a correct date in dd-mm-yyyy format. From '01-01-2005' till today."
+  date_error_message <-
+  "Provide a correct date in dd-mm-yyyy format.
+  From '01-01-2005' till today."
 
   # check the arguments
   if (missing(rulebook_date)) {
@@ -26,13 +28,16 @@ get_structure <- function(rulebook_date, layer = "chapter") {
   }
 
   # validate the input format
-  if (is.na(as.Date(rulebook_date, format = "%d-%m-%Y"))) {
+  if (is.na(as.Date(rulebook_date,
+                    format = "%d-%m-%Y"))) {
     stop(date_error_message)
   }
 
   # validate type
-  if (!(layer %in% c("rule", "chapter", "part", "sector"))) {
-    stop("Provide a layer to scrape. Available options: rule, chapter, part, sector.")
+  if (!(layer %in%
+        c("rule", "chapter", "part", "sector"))) {
+    stop("Provide a layer to scrape.
+         Available options: rule, chapter, part, sector.")
   }
 
   # full URL example: http://www.prarulebook.co.uk/rulebook/Content/Part/216145/16-11-2007

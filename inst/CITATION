@@ -7,9 +7,6 @@ citEntry(
   journal  = "Bank of England Staff Working Paper",
   year     = "2019",
   volume   = "834",
-  number   = ,
-  pages    = ,
-  url      = "https://www.bankofengland.co.uk/working-paper/staff-working-papers",
-  textVersion = paste(
-  )
+  url      = "https://www.bankofengland.co.uk/working-paper/2019/the-language-of-rules-textual-complexity-in-banking-reforms",
+  textVersion = "Amadxarif, Z., Brookes, J., Garbarino, N., Patel, R., Walczak, E. (2019) The Language of Rules: Textual Complexity in Banking Reforms. Bank of England Staff Working Paper No. 834."
 )

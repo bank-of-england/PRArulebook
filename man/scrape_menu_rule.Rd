@@ -23,7 +23,7 @@ Helper function
 \dontrun{
 has_rules_url <- "http://www.prarulebook.co.uk/rulebook/Content/Chapter/218624/22-03-2006"
 no_rules_url <- "http://www.prarulebook.co.uk/rulebook/Content/Chapter/219425/22-03-2006"
-nodes_only <- httr::GET(no_rules_url) \%>\% extract_results()
+nodes_only <- httr::GET(no_rules_url) \%>\% PRArulebook:::extract_results()
 nodes_only <-
 nodes_only \%>\%
   xml2::read_html() \%>\%

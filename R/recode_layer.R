@@ -20,29 +20,60 @@
 recode_layer <- function(from, to = "all", structure_file) {
 
   # validate 'to' type
-  if (!(to %in% c("rule_url", "rule_name", "chapter_url", "chapter_name",
-                  "part_url", "part_name", "sector_url", "sector_name", "all"))) {
-    stop("Provide correct 'to' argument. Available options: rule_url, rule_name,
-         chapter_url, chapter_name, part_url, part_name, sector_url, sector_name, all.")
+  if (!(
+    to %in% c(
+      "rule_url",
+      "rule_name",
+      "chapter_url",
+      "chapter_name",
+      "part_url",
+      "part_name",
+      "sector_url",
+      "sector_name",
+      "all"
+    )
+  )) {
+    stop(
+      "Provide correct 'to' argument.
+      Available options: rule_url, rule_name,
+      chapter_url, chapter_name, part_url, part_name,
+      sector_url, sector_name, all."
+    )
   }
 
   # extract link type from the url
   assign_link_type <- function(x) {
     ifelse(is.na(x), stop("Provide correct 'from' URL"),
-           ifelse(grepl("Content/Part", x), "Part",
-                  ifelse(grepl("Content/Chapter", x), "Chapter",
-                         ifelse(grepl("Content/Rule", x), "Rule",
-                                ifelse(grepl("Content/Sector", x), "Sector",
-                                                     "Other")))))
+           ifelse(
+             grepl("Content/Part", x),
+             "Part",
+             ifelse(
+               grepl("Content/Chapter", x),
+               "Chapter",
+               ifelse(
+                 grepl("Content/Rule", x),
+                 "Rule",
+                 ifelse(grepl("Content/Sector", x), "Sector",
+                        "Other")
+               )
+             )
+           ))
   }
   # check the type of a 'from' link
   from_type <- assign_link_type(from)
   # assign appropriate variable name
-  from_type_url <- ifelse(from_type == "Sector", "sector_url",
-                          ifelse(from_type == "Part", "part_url",
-                                 ifelse(from_type == "Chapter", "chapter_url",
-                                        ifelse(from_type == "Rule", "rule_url",
-                                               stop("Incorrect URL")))))
+  from_type_url <- ifelse(from_type == "Sector",
+                          "sector_url",
+                          ifelse(
+                            from_type == "Part",
+                            "part_url",
+                            ifelse(
+                              from_type == "Chapter",
+                              "chapter_url",
+                              ifelse(from_type == "Rule", "rule_url",
+                                     stop("Incorrect URL"))
+                            )
+                          ))
 
   # check if 'from' column is in the structure file
   if (!(from_type_url %in% names(structure_file))) {
@@ -59,7 +90,6 @@ recode_layer <- function(from, to = "all", structure_file) {
       dplyr::left_join(from_df, structure_file)
 
   } else {
-
     # choose columns to subset
     cols2select <- c(from_type_url, to)
     # subset the df to keep only from-to columns

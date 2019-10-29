@@ -13,7 +13,7 @@
 #' \dontrun{
 #' has_rules_url <- "http://www.prarulebook.co.uk/rulebook/Content/Chapter/218624/22-03-2006"
 #' no_rules_url <- "http://www.prarulebook.co.uk/rulebook/Content/Chapter/219425/22-03-2006"
-#' nodes_only <- httr::GET(no_rules_url) %>% extract_results()
+#' nodes_only <- httr::GET(no_rules_url) %>% PRArulebook:::extract_results()
 #' nodes_only <-
 #' nodes_only %>%
 #'   xml2::read_html() %>%
@@ -21,7 +21,7 @@
 #' scrape_menu_rule()
 #' }
 scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
-  IDs <- nodes_only %>% rvest::html_attr("id") %>% na.omit()
+  IDs <- nodes_only %>% rvest::html_attr("id") %>% stats::na.omit()
 
   # TODO test if empty
   # e.g. http://www.prarulebook.co.uk/rulebook/Content/Chapter/302933/16-11-2017
@@ -38,12 +38,14 @@ scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
 
     # create actual URLs
     rule_urls <-
-      paste0("http://www.prarulebook.co.uk/rulebook/Content/Rule/",
-             IDs,
-             "/",
-             rulebook_date,
-             "#",
-             IDs)
+      paste0(
+        "http://www.prarulebook.co.uk/rulebook/Content/Rule/",
+        IDs,
+        "/",
+        rulebook_date,
+        "#",
+        IDs
+      )
 
     # create selectors for rules
     rule_no_selector <-
@@ -54,7 +56,6 @@ scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
       paste0("#", IDs, "+ .div-row a")
 
   } else {
-
     IDs <- NA
     rule_urls <- NA
     rule_no_selector <- NA
@@ -65,13 +66,15 @@ scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
 
   # make a df with rule URLs and add IDs
   rule_IDs <-
-    data.frame(rule_url = rule_urls,
-               rule_id = IDs,
-               rule_number_sel = rule_no_selector,
-               rule_text_sel = rule_text_selector,
-               rule_link_sel = rule_link_selector,
-               chapter_url = url,
-               stringsAsFactors = FALSE)
+    data.frame(
+      rule_url = rule_urls,
+      rule_id = IDs,
+      rule_number_sel = rule_no_selector,
+      rule_text_sel = rule_text_selector,
+      rule_link_sel = rule_link_selector,
+      chapter_url = url,
+      stringsAsFactors = FALSE
+    )
 
   # assign the IDs
   nodes_df <- rule_IDs

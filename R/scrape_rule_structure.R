@@ -18,6 +18,8 @@ scrape_rule_structure <- function(df, rulebook_date) {
   cat("--- Scraping RULES ---")
   cat("\n")
 
+  # TODO add input validation
+
   # new method - extract IDs - allows getting rule URLs
   # get all rules and append to a data frame
   rules <-
