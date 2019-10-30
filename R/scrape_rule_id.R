@@ -15,10 +15,6 @@
 #' }
 scrape_rule_id <- function(url, selector_rule_no, selector_rule_text) {
 
-  if (!startsWith(url, "http")) { # TODO or WWW / prarulebook.co.uk
-    stop("Provide a valid URL.")
-  }
-
   if (is.na(url)) {
     rules_content <-
       data.frame(rule_number = NA,
