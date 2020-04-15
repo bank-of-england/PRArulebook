@@ -11,8 +11,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' scrape_menu("http://www.prarulebook.co.uk/rulebook/Home/Handbook/16-11-2007", ".nav-child a")
-#' scrape_menu("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007", "a", rulebook_date = "16-11-2007")
+#' scrape_menu("http://www.prarulebook.co.uk/rulebook/Home/Handbook/16-11-2007",
+#' ".nav-child a")
+#' scrape_menu(
+#' "http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007",
+#' "a", rulebook_date = "16-11-2007")
 #' }
 scrape_menu <- function(url, selector, rulebook_date) {
 
@@ -56,6 +59,8 @@ scrape_menu <- function(url, selector, rulebook_date) {
 
   # check if element is effective
   # e.g. "http://www.prarulebook.co.uk/rulebook/Content/Part/229754/16-11-2007"
+  # won't work on deleted chapters, e.g.
+  # http://www.prarulebook.co.uk/rulebook/Content/Chapter/231911/16-05-2005 (need to be filtered out)
   if (length(nodes_text) == 0) {
     nodes_text <- NA
   }

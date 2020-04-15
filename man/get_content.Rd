@@ -9,9 +9,13 @@ get_content(x, type = "text", single_rule_selector = NULL)
 \arguments{
 \item{x}{String. URL to scrape.}
 
-\item{type}{String. Type of information to scrape. "text" or "links".}
+\item{type}{String. Type of information to scrape.
+Valid arguments: "text" or "links".}
 
-\item{single_rule_selector}{String. Optional. CSS selector for individual rules.}
+\item{single_rule_selector}{String. Optional.
+Is CSS there a selector for individual rules? If "yes" then provide
+rule-level URLs to scrape. Leave blank for levels levels
+above rule (e.g. chapter, part or sector).}
 }
 \value{
 Data frame with URLs and corresponding text.
@@ -29,6 +33,6 @@ get_content(
 get_content(
 "http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145",
 "text",
-"yes")
+single_rule_selector = "yes")
 }
 }

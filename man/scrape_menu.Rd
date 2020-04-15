@@ -21,7 +21,10 @@ Scrapes names and URLs from the PRA rulebook menu. The menu is on the left-hand 
 }
 \examples{
 \dontrun{
-scrape_menu("http://www.prarulebook.co.uk/rulebook/Home/Handbook/16-11-2007", ".nav-child a")
-scrape_menu("http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007", "a", rulebook_date = "16-11-2007")
+scrape_menu("http://www.prarulebook.co.uk/rulebook/Home/Handbook/16-11-2007",
+".nav-child a")
+scrape_menu(
+"http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007",
+"a", rulebook_date = "16-11-2007")
 }
 }

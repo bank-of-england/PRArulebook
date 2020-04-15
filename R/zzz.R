@@ -3,6 +3,34 @@
 #' @importFrom httr warn_for_status
 #' @importFrom httr status_code
 #'
+# extract nodes - used in get_content
+pull_nodes <- function(x, node_to_pull) {
+
+  nodes_only_get <- httr::GET(x)
+
+  # check if part is effective
+  if (httr::status_code(nodes_only_get) == 200) {
+
+    nodes_only <- nodes_only_get %>%
+      xml2::read_html() %>%
+      rvest::html_nodes(node_to_pull)
+
+    return(nodes_only)
+  }
+  # if not 200 then return NA
+  # e.g. http://www.prarulebook.co.uk/rulebook/Content/Part/229754/16-11-2007
+  nodes_only <- NA
+  return(nodes_only)
+}
+# function to extract text - used in get_content
+extract_node_text <- function(y) {
+
+  nodes_text <-
+    ifelse(is.na(y) | length(y) == 0,
+           NA,
+           y %>% rvest::html_text() %>% trimws())
+  return(nodes_text)
+}
 # extact results if page is active
 extract_results <- function(x) {
   httr::warn_for_status(x)

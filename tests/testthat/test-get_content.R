@@ -5,12 +5,12 @@ test_that("get_content works", {
   one_rule <-
     get_content("http://www.prarulebook.co.uk/rulebook/Content/Rule/211145/18-06-2019#211145",
                 "text",
-                "yes")
+                single_rule_selector = "yes")
   expect_s3_class(one_rule, "data.frame")
 
   # check if the names are as expected
   expected_names <-
-    c("rule_number", "rule_text", "rule_date", "url", "active")
+    c("rule_number", "rule_text", "url", "active")
   returned_names <- names(one_rule)
   expect_identical(expected_names, returned_names)
 
@@ -18,7 +18,7 @@ test_that("get_content works", {
   links_content <-
     get_content(
     "http://www.prarulebook.co.uk/rulebook/Content/Chapter/242047/16-11-2007",
-    "links")
+    type = "links")
   expect_s3_class(links_content, "data.frame")
   # test the column names
   expected_names_links <- c("from", "to", "to_text", "to_type")

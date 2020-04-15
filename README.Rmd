@@ -102,7 +102,7 @@ To get content of the rulebook (text or links) use `get_content` function with a
 # scrape text from a single chapter
 chapter_text <- get_content(chapters$chapter_url[1])
 # or single rule
-rule_text <- get_content(rules$rule_url[2], "text", "yes")
+rule_text <- get_content(rules$rule_url[3], "text", "yes")
 ```
 
 This function can be applied on the entire rulebook in the following way:
@@ -110,10 +110,25 @@ This function can be applied on the entire rulebook in the following way:
 ```{r, eval = FALSE}
 library(purrr)
 
+# text: chapter-level
+# exception handling might be needed
 chapters_text <-
   map_df(chapters$chapter_url[1:5],
                 get_content)
-# exception handling might be needed
+
+# text
+rules_text <-
+  map_df(rules$rule_url[1:5],
+         get_content,
+         type = "text",
+         single_rule_selector = "yes")
+
+# links
+rules_links <-
+  map_df(rules$rule_url[1:5],
+         get_content,
+         type = "links",
+         single_rule_selector = "yes")
 ```
 
 The output can be then joined to the information about the rulebook structure and aggregated at a higher level.

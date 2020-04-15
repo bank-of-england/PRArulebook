@@ -23,6 +23,10 @@
 scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
   IDs <- nodes_only %>% rvest::html_attr("id") %>% stats::na.omit()
 
+  # DEV only - for debugging
+  # fails on deleted chapters
+  print(url)
+
   # TODO test if empty
   # e.g. http://www.prarulebook.co.uk/rulebook/Content/Chapter/302933/16-11-2017
 
@@ -65,18 +69,27 @@ scrape_menu_rule <- function(url, nodes_only, rulebook_date) {
   }
 
   # make a df with rule URLs and add IDs
-  rule_IDs <-
-    data.frame(
+  # catches errors when alerts are present, e.g.
+  # http://www.prarulebook.co.uk/rulebook/Content/Chapter/231911/16-05-2005
+  nodes_df <-
+    tryCatch(data.frame(
       rule_url = rule_urls,
       rule_id = IDs,
       rule_number_sel = rule_no_selector,
       rule_text_sel = rule_text_selector,
       rule_link_sel = rule_link_selector,
       chapter_url = url,
-      stringsAsFactors = FALSE
-    )
+      stringsAsFactors = FALSE),
+      error = function(e) return(
+        data.frame(
+          rule_url = NA,
+          rule_id = NA,
+          rule_number_sel = NA,
+          rule_text_sel = NA,
+          rule_link_sel = NA,
+          chapter_url = url,
+          stringsAsFactors = FALSE)
+      ))
 
-  # assign the IDs
-  nodes_df <- rule_IDs
   return(nodes_df)
 }
