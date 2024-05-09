@@ -38,6 +38,10 @@ These include, but are not limited to, restrictions on using content
 from the PRA Rulebook for commercial purposes without obtaining a
 licence from the PRA.
 
+## Data Classification
+
+Bank of England Data Classification: OFFICIAL BLUE
+
 ## Installation
 
 You can install the development version of `PRArulebook` from GitHub
@@ -52,13 +56,13 @@ devtools::install_github("erzk/PRArulebook")
 
 `PRArulebook` scrapes two types of data: **structure** and **content**.
 
-  - **Structure** - hierarchy of the PRA Rulebook. Includes URLs and
-    names.
+- **Structure** - hierarchy of the PRA Rulebook. Includes URLs and
+  names.
 
-  - **Content**
-    
-      - Text - can be used for text analysis
-      - Network - can be used for network analysis.
+- **Content**
+
+  - Text - can be used for text analysis
+  - Network - can be used for network analysis.
 
 The next section shows how to extract these types of data.
 
@@ -94,9 +98,9 @@ take longer if you decide to pull more granular data. The rulebook has
 several layers and each of them can be passed to the `layer` argument of
 `get_structure` (in descending order):
 
-  - `sector`
-  - `part`
-  - `chapter`
+- `sector`
+- `part`
+- `chapter`
 
 The output will be a data frame with information about the structure
 (i.e. URLs and names).
@@ -123,7 +127,7 @@ function with a URL of a given chapter.
 # scrape text from a single chapter
 chapter_text <- get_content(chapters$chapter_url[1])
 # or single rule
-rule_text <- get_content(rules$rule_url[2], "text", "yes")
+rule_text <- get_content(rules$rule_url[3], "text", "yes")
 ```
 
 This function can be applied on the entire rulebook in the following
@@ -132,10 +136,25 @@ way:
 ``` r
 library(purrr)
 
+# text: chapter-level
+# exception handling might be needed
 chapters_text <-
   map_df(chapters$chapter_url[1:5],
                 get_content)
-# exception handling might be needed
+
+# text
+rules_text <-
+  map_df(rules$rule_url[1:5],
+         get_content,
+         type = "text",
+         single_rule_selector = "yes")
+
+# links
+rules_links <-
+  map_df(rules$rule_url[1:5],
+         get_content,
+         type = "links",
+         single_rule_selector = "yes")
 ```
 
 The output can be then joined to the information about the rulebook

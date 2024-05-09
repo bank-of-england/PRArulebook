@@ -30,6 +30,9 @@ The input to this package is the PRA Rulebook website. Outputs from this package
 
 Any use of this package with the PRA Rulebook must comply with the PRA Rulebook's [Terms of Use](http://www.prarulebook.co.uk/terms-of-use). These include, but are not limited to, restrictions on using content from the PRA Rulebook for commercial purposes without obtaining a licence from the PRA.
 
+## Data Classification
+Bank of England Data Classification: OFFICIAL BLUE
+
 ## Installation
 
 You can install the development version of `PRArulebook` from GitHub with:
@@ -55,7 +58,7 @@ The next section shows how to extract these types of data.
 
 Load the package
 
-```{r}
+```{r, eval = FALSE}
 library(PRArulebook)
 ```
 
